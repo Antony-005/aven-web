@@ -1,111 +1,128 @@
 import { useState } from "react";
 
 export default function ContactUs() {
-  const [formData, setFormData] = useState({ fullName: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const validate = () => {
-    const errs = {};
-    if (!formData.fullName.trim()) errs.fullName = "Full Name is required";
-    if (!formData.email.trim()) {
-      errs.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errs.email = "Email is invalid";
-    }
-    if (!formData.message.trim()) errs.message = "Message is required";
-    return errs;
-  };
+    const newErrors = {};
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (!form.name.trim()) newErrors.name = "Name is required";
+    if (!form.email.includes("@")) newErrors.email = "Valid email required";
+    if (form.message.length < 10)
+      newErrors.message = "Message must be at least 10 characters";
+
+    return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const errs = validate();
-    setErrors(errs);
-    if (Object.keys(errs).length === 0) {
-      setSubmitted(true);
-      // Here you would normally send the data to backend API
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
     }
+
+    setErrors({});
+    setSubmitted(true);
   };
 
-  if (submitted) {
-    return (
-      <div className="bg-primary min-h-screen text-white px-6 py-20 max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl font-semibold mb-4">Thanks!</h2>
-        <p>Your message has been received. We’ll get back to you soon.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-primary min-h-screen text-white px-6 py-20 max-w-3xl mx-auto">
-      <h1 className="text-4xl font-bold mb-10 text-center">Contact Us</h1>
-      <form onSubmit={handleSubmit} noValidate className="space-y-6">
-        <div>
-          <label htmlFor="fullName" className="block mb-2 font-semibold">
-            Full Name
-          </label>
-          <input
-            id="fullName"
-            name="fullName"
-            type="text"
-            value={formData.fullName}
-            onChange={handleChange}
-            className={`w-full p-3 rounded bg-cardLight text-primary focus:outline-accent ${
-              errors.fullName ? "border-2 border-red-500" : "border border-transparent"
-            }`}
-          />
-          {errors.fullName && <p className="text-red-400 mt-1">{errors.fullName}</p>}
-        </div>
+    <section className="max-w-3xl mx-auto space-y-12">
 
-        <div>
-          <label htmlFor="email" className="block mb-2 font-semibold">
-            Email Address
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={`w-full p-3 rounded bg-cardLight text-primary focus:outline-accent ${
-              errors.email ? "border-2 border-red-500" : "border border-transparent"
-            }`}
-          />
-          {errors.email && <p className="text-red-400 mt-1">{errors.email}</p>}
-        </div>
+      {/* HEADER */}
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-white">
+          Contact Us
+        </h1>
+        <p className="mt-4 text-gray-300 text-lg">
+          We’re here to listen, support, and improve AVEN together.
+        </p>
+      </div>
 
-        <div>
-          <label htmlFor="message" className="block mb-2 font-semibold">
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            value={formData.message}
-            onChange={handleChange}
-            className={`w-full p-3 rounded bg-cardLight text-primary focus:outline-accent resize-none ${
-              errors.message ? "border-2 border-red-500" : "border border-transparent"
-            }`}
-          />
-          {errors.message && <p className="text-red-400 mt-1">{errors.message}</p>}
-        </div>
+      {/* FORM */}
+      <div className="bg-cardDark p-8 rounded-xl">
+        {submitted ? (
+          <div className="text-center space-y-4">
+            <h2 className="text-2xl font-semibold text-accent">
+              Message Sent
+            </h2>
+            <p className="text-gray-300">
+              Thank you for reaching out. We’ll get back to you soon.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
 
-        <button
-          type="submit"
-          className="bg-accent text-primary font-semibold px-6 py-3 rounded hover:bg-yellow-400 transition"
-        >
-          Submit
-        </button>
-      </form>
+            {/* NAME */}
+            <div>
+              <label className="block text-white mb-2">Full Name</label>
+              <input
+                type="text"
+                className="w-full p-3 rounded bg-cardLight text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                value={form.name}
+                onChange={(e) =>
+                  setForm({ ...form, name: e.target.value })
+                }
+              />
+              {errors.name && (
+                <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+              )}
+            </div>
 
-      <p className="mt-8 text-center">
-        Or email us at <a href="mailto:support@aven.com" className="underline hover:text-accent">support@aven.com</a>
-      </p>
-    </div>
+            {/* EMAIL */}
+            <div>
+              <label className="block text-white mb-2">Email Address</label>
+              <input
+                type="email"
+                className="w-full p-3 rounded bg-cardLight text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                value={form.email}
+                onChange={(e) =>
+                  setForm({ ...form, email: e.target.value })
+                }
+              />
+              {errors.email && (
+                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+              )}
+            </div>
+
+            {/* MESSAGE */}
+            <div>
+              <label className="block text-white mb-2">Message</label>
+              <textarea
+                rows="5"
+                className="w-full p-3 rounded bg-cardLight text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                value={form.message}
+                onChange={(e) =>
+                  setForm({ ...form, message: e.target.value })
+                }
+              />
+              {errors.message && (
+                <p className="text-red-400 text-sm mt-1">
+                  {errors.message}
+                </p>
+              )}
+            </div>
+
+            {/* SUBMIT */}
+            <button
+              type="submit"
+              className="w-full bg-accent text-primary font-semibold py-3 rounded hover:opacity-90 transition"
+            >
+              Send Message
+            </button>
+
+          </form>
+        )}
+      </div>
+
+    </section>
   );
 }
