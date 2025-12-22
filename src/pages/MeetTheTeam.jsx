@@ -1,24 +1,55 @@
 export default function MeetTheTeam() {
   const team = [
-    {
-      name: "Chaluo Ian",
-      role: "CEO",
-      description:
-        "Focused on building community-first digital health solutions that are accessible, ethical, and impactful.",
-    },
-    {
-      name: "Health Advisory Team",
-      role: "Medical & Wellness Advisors",
-      description:
-        "A group of professionals guiding AVEN’s direction to ensure accuracy, responsibility, and user wellbeing.",
-    },
-    {
-      name: "Engineering & Design",
-      role: "Platform Builders",
-      description:
-        "Designers and engineers dedicated to creating intuitive, human-centered digital health experiences.",
-    },
-  ];
+  {
+    name: "Chaluo Ian",
+    role: "Chief Executive Officer (CEO)",
+    description:
+      "Leads AVEN’s vision and strategy, focused on building community-first digital health solutions that are accessible, ethical, and impactful.",
+  },
+  {
+    name: "Bruce",
+    role: "Chief Product & Technology Officer (CPTO)",
+    description:
+      "Oversees product strategy and technology architecture to ensure AVEN delivers scalable, secure, and human-centered solutions.",
+  },
+  {
+    name: "Antony",
+    role: "Chief Product & Technology Officer (CPTO)",
+    description:
+      "Drives platform innovation and technical execution, translating health needs into intuitive digital experiences.",
+  },
+  {
+    name: "Paul",
+    role: "Operations & Compliance Lead",
+    description:
+      "Ensures operational excellence and regulatory alignment, supporting safe and compliant healthcare delivery.",
+  },
+  {
+    name: "Nila",
+    role: "Operations & Compliance Lead",
+    description:
+      "Manages governance and compliance processes to maintain trust, quality, and accountability across the platform.",
+  },
+  {
+    name: "Bildad",
+    role: "Growth & Research Lead",
+    description:
+      "Leads growth strategy, partnerships, and research to expand AVEN’s impact and reach within communities.",
+  },
+  {
+    name: "Safia",
+    role: "Growth & Research Lead",
+    description:
+      "Focuses on user insights, market research, and evidence-driven growth initiatives.",
+  },
+  {
+    name: "Dr. Mathias",
+    role: "Medical Advisor (Advisory Board)",
+    description:
+      "Provides clinical guidance and medical oversight to ensure AVEN’s solutions are accurate, responsible, and patient-centered.",
+  },
+];
+
 
   return (
     <section className="max-w-6xl mx-auto space-y-16">
