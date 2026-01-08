@@ -8,43 +8,43 @@ export default function MeetTheTeam() {
   },
   {
     name: "Bruce",
-    role: "Chief Product & Technology Officer (CPTO)",
+    role: "Chief Product Officer (CPO)",
     description:
       "Oversees product strategy and technology architecture to ensure AVEN delivers scalable, secure, and human-centered solutions.",
   },
   {
     name: "Antony",
-    role: "Chief Product & Technology Officer (CPTO)",
+    role: "Chief Technology Officer (CTO)",
     description:
       "Drives platform innovation and technical execution, translating health needs into intuitive digital experiences.",
   },
   {
     name: "Paul",
-    role: "Operations & Compliance Lead",
+    role: " Chief Operating Officer (COO)",
     description:
       "Ensures operational excellence and regulatory alignment, supporting safe and compliant healthcare delivery.",
   },
   {
     name: "Nila",
-    role: "Operations & Compliance Lead",
+    role: "Chief Compliance and Partnerships Officer",
     description:
       "Manages governance and compliance processes to maintain trust, quality, and accountability across the platform.",
   },
   {
     name: "Bildad",
-    role: "Growth & Research Lead",
+    role: " Chief Marketing and Communications Officer",
     description:
       "Leads growth strategy, partnerships, and research to expand AVEN’s impact and reach within communities.",
   },
   {
     name: "Safia",
-    role: "Growth & Research Lead",
+    role: "Chief Community Officer",
     description:
       "Focuses on user insights, market research, and evidence-driven growth initiatives.",
   },
   {
     name: "Dr. Mathias",
-    role: "Medical Advisor (Advisory Board)",
+    role: "Chief Medical Officer (CMO)",
     description:
       "Provides clinical guidance and medical oversight to ensure AVEN’s solutions are accurate, responsible, and patient-centered.",
   },
