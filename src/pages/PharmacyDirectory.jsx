@@ -1,8 +1,14 @@
+import { useEffect, useState } from "react";
+import ComingSoonModal from "../components/ui/ComingSoonModal";
+
 import pharm1 from "../assets/pharmacy01.png";
 import pharm2 from "../assets/pharmacy02.png";
 import pharm3 from "../assets/pharmacy03.png";
 
 export default function PharmacyDirectory() {
+  const [showPagePopup, setShowPagePopup] = useState(true);
+  const [showActionPopup, setShowActionPopup] = useState(false);
+
   const pharmacies = [
     {
       name: "Goodlife Pharmacy",
@@ -32,6 +38,23 @@ export default function PharmacyDirectory() {
 
   return (
     <section className="space-y-12">
+
+      {/* PAGE POPUP */}
+      <ComingSoonModal
+        open={showPagePopup}
+        onClose={() => setShowPagePopup(false)}
+        title="Pharmacy Services Coming Soon"
+        message="Online pharmacy services are currently under development. You will soon be able to browse pharmacies, view products, and place orders directly through the platform."
+      />
+
+      {/* ACTION POPUP */}
+      <ComingSoonModal
+        open={showActionPopup}
+        onClose={() => setShowActionPopup(false)}
+        title="Feature Not Available Yet"
+        message="Pharmacy profiles and online ordering are not yet available. These features will be launching soon."
+      />
+
       {/* Header */}
       <header className="text-center space-y-2">
         <h1 className="text-4xl font-bold text-white">Pharmacies</h1>
@@ -48,14 +71,12 @@ export default function PharmacyDirectory() {
             key={index}
             className="bg-cardDark rounded-xl overflow-hidden shadow hover:shadow-xl transition"
           >
-            {/* Image */}
             <img
               src={pharmacy.image}
               alt={pharmacy.name}
               className="h-44 w-full object-cover"
             />
 
-            {/* Content */}
             <div className="p-6 space-y-4">
               <div>
                 <h3 className="text-lg font-semibold text-white">
@@ -71,7 +92,6 @@ export default function PharmacyDirectory() {
                 <p className="text-accent">{pharmacy.services}</p>
               </div>
 
-              {/* Products */}
               <div className="space-y-2">
                 <p className="text-sm font-medium text-white">
                   Available Products
@@ -90,7 +110,10 @@ export default function PharmacyDirectory() {
               </div>
 
               {/* Action */}
-              <button className="w-full mt-2 px-4 py-2 text-sm font-semibold rounded-md bg-accent text-primary hover:opacity-90 transition">
+              <button
+                onClick={() => setShowActionPopup(true)}
+                className="w-full mt-2 px-4 py-2 text-sm font-semibold rounded-md bg-accent text-primary hover:opacity-90 transition"
+              >
                 View Pharmacy
               </button>
             </div>

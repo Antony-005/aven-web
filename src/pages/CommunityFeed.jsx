@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PostComposerModal from "../components/community/PostComposerModal";
 import PostCard from "../components/community/PostCard";
 import CommunityCard from "../components/community/CommunityCard";
+import ComingSoonModal from "../components/ui/ComingSoonModal";
 
 import communityImg1 from "../assets/01.png";
 import communityImg2 from "../assets/02.png";
@@ -9,23 +10,16 @@ import communityImg3 from "../assets/03.png";
 
 export default function CommunityFeed() {
   const [openComposer, setOpenComposer] = useState(false);
+  const [showNotice, setShowNotice] = useState(false);
+
+  useEffect(() => {
+    setShowNotice(true);
+  }, []);
 
   const communities = [
-    {
-      name: "Mental Wellness",
-      members: "12,430 members",
-      image: communityImg1,
-    },
-    {
-      name: "Fitness & Nutrition",
-      members: "9,870 members",
-      image: communityImg2,
-    },
-    {
-      name: "Chronic Care Support",
-      members: "6,240 members",
-      image: communityImg3,
-    },
+    { name: "Mental Wellness", members: "0 members", image: communityImg1 },
+    { name: "Fitness & Nutrition", members: "0 members", image: communityImg2 },
+    { name: "Chronic Care Support", members: "0 members", image: communityImg3 },
   ];
 
   const posts = [
@@ -47,57 +41,78 @@ export default function CommunityFeed() {
     },
   ];
 
+  const handleFeatureClick = () => {
+    setShowNotice(true);
+  };
+
   return (
-    <div className="space-y-16">
+    <div className="space-y-20">
+
       {/* HEADER */}
       <section className="space-y-4">
         <h1 className="text-3xl font-bold">Communities</h1>
         <p className="text-gray-300 max-w-2xl">
-          Join health-focused communities to share experiences, ask questions,
-          and support one another.
+          Discover and engage in health-focused communities. Share experiences,
+          ask questions, and support one another.
         </p>
       </section>
 
       {/* COMMUNITY GRID */}
-      <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {communities.map((community, index) => (
-          <CommunityCard
-            key={index}
-            name={community.name}
-            members={community.members}
-            image={community.image}
-          />
-        ))}
+      <section className="space-y-8">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold">Explore Communities</h2>
+          <span className="text-sm text-gray-400">More coming soon</span>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {communities.map((community, index) => (
+            <div
+              key={index}
+              onClick={handleFeatureClick}
+              className="group cursor-pointer transition-transform hover:-translate-y-1"
+            >
+              <CommunityCard
+                name={community.name}
+                members={community.members}
+                image={community.image}
+              />
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* FEED HEADER */}
       <section className="flex items-center justify-between max-w-3xl">
-        <h2 className="text-2xl font-semibold">Community Feed</h2>
+        <div>
+          <h2 className="text-2xl font-semibold">Community Feed</h2>
+          <p className="text-sm text-gray-400 mt-1">
+            See what people are talking about across all communities
+          </p>
+        </div>
+
         <button
-          onClick={() => setOpenComposer(true)}
-          className="px-4 py-2 bg-accent text-primary rounded-lg text-sm font-semibold hover:opacity-90"
+          onClick={handleFeatureClick}
+          className="px-5 py-2.5 bg-accent text-primary rounded-xl text-sm font-semibold hover:opacity-90 transition shadow-md"
         >
           Create Post
         </button>
       </section>
 
       {/* FEED */}
-      <section className="max-w-3xl space-y-6">
+      <section className="max-w-3xl space-y-8">
         {posts.map((post) => (
-          <PostCard
-            key={post.id}
-            author={post.author}
-            role={post.role}
-            content={post.content}
-            time={post.time}
-          />
+          <div key={post.id} className="transition hover:scale-[1.01]">
+            <PostCard {...post} />
+          </div>
         ))}
       </section>
 
-      {/* POST COMPOSER MODAL */}
-      <PostComposerModal
-        open={openComposer}
-        onClose={() => setOpenComposer(false)}
+      {/* NOTICE MODAL */}
+      <ComingSoonModal
+        open={showNotice}
+        onClose={() => setShowNotice(false)}
+        title="Community Features Coming Soon"
+        message="Community interactions, posting, and joining communities are currently unavailable on the website. These features will be accessible soon. For now, you can explore what is coming."
       />
     </div>
   );

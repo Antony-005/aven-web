@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ComingSoonModal from "../components/ui/ComingSoonModal";
 import doc1 from "../assets/01.png";
 
 export default function DoctorProfile() {
   const { id } = useParams();
+  const [showNotice, setShowNotice] = useState(false);
 
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -11,8 +13,16 @@ export default function DoctorProfile() {
   const [doubleBooking, setDoubleBooking] = useState(false);
 
   const durations = [15, 30, 45, 59];
-
   const canSubmit = date && startTime && duration;
+
+  useEffect(() => {
+    setShowNotice(true);
+  }, []);
+
+  const handleConfirm = (e) => {
+    e.preventDefault();
+    setShowNotice(true);
+  };
 
   return (
     <section className="max-w-4xl mx-auto space-y-10">
@@ -25,7 +35,7 @@ export default function DoctorProfile() {
         />
 
         <div className="p-8 space-y-4">
-          <h1 className="text-3xl font-bold text-white">Dr. Mathias</h1>
+          <h1 className="text-3xl font-bold text-white">Doctor {id}</h1>
           <p className="text-accent">General Practitioner</p>
           <p className="text-gray-300">
             Community-first healthcare professional focused on preventative and
@@ -102,12 +112,21 @@ export default function DoctorProfile() {
 
         {/* Confirm */}
         <button
+          onClick={handleConfirm}
           disabled={!canSubmit}
           className="mt-4 px-6 py-3 bg-accent text-primary font-semibold rounded-md disabled:opacity-50 transition"
         >
           Confirm Appointment
         </button>
       </div>
+
+      {/* NOTICE MODAL */}
+      <ComingSoonModal
+        open={showNotice}
+        onClose={() => setShowNotice(false)}
+        title="Appointment Booking Coming Soon"
+        message="Booking appointments and accessing doctor profiles is not yet available on the website. These features will be launched soon. You can currently explore the upcoming experience."
+      />
     </section>
   );
 }

@@ -6,3 +6,15 @@ html,
 body {
   @apply bg-primary text-white;
 }
+.dropdown-link {
+  display: block;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  color: white;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-link:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+}

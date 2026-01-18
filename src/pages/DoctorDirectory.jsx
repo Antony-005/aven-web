@@ -1,35 +1,48 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ComingSoonModal from "../components/ui/ComingSoonModal";
 import doc1 from "../assets/appointment01.png";
 import doc2 from "../assets/appointment02.png";
 import doc3 from "../assets/appointment03.png";
 
 export default function DoctorDirectory() {
+  const [showNotice, setShowNotice] = useState(false);
+
+  useEffect(() => {
+    setShowNotice(true);
+  }, []);
+
   const doctors = [
     {
       id: 1,
-      name: "Dr. Mathias",
+      name: "Doctor 1",
       specialty: "General Practitioner",
       location: "Nairobi",
-      availability: "Available Today",
+      availability: "Soon",
       image: doc1,
     },
     {
       id: 2,
-      name: "Dr. Safia Ahmed",
+      name: "Doctor 2",
       specialty: "Mental Health Specialist",
       location: "Telehealth",
-      availability: "Available Tomorrow",
+      availability: "Soon",
       image: doc2,
     },
     {
       id: 3,
-      name: "Dr. Paul Njoroge",
+      name: "Doctor 3",
       specialty: "Chronic Care Specialist",
       location: "Westlands",
-      availability: "Available This Week",
+      availability: "Soon",
       image: doc3,
     },
   ];
+
+  const handleFeatureClick = (e) => {
+    e.preventDefault();
+    setShowNotice(true);
+  };
 
   return (
     <section className="space-y-10">
@@ -56,10 +69,11 @@ export default function DoctorDirectory() {
               <h3 className="text-xl font-semibold">{doc.name}</h3>
               <p className="text-accent text-sm">{doc.specialty}</p>
               <p className="text-gray-300 text-sm">{doc.location}</p>
-              <p className="text-green-400 text-sm">{doc.availability}</p>
+              <p className="text-gray-400 text-sm">Availability: Soon</p>
 
               <Link
                 to={`/doctors/${doc.id}`}
+                onClick={handleFeatureClick}
                 className="inline-block mt-4 px-4 py-2 bg-accent text-primary rounded-md font-semibold"
               >
                 View Profile
@@ -68,6 +82,14 @@ export default function DoctorDirectory() {
           </div>
         ))}
       </div>
+
+      {/* NOTICE MODAL */}
+      <ComingSoonModal
+        open={showNotice}
+        onClose={() => setShowNotice(false)}
+        title="Appointment Booking Coming Soon"
+        message="Doctor profiles and appointment booking are not yet available on the website. These features will be introduced soon. You can currently explore the upcoming experience."
+      />
     </section>
   );
 }
